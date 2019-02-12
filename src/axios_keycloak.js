@@ -8,33 +8,18 @@ keycloak.init({ onLoad: 'login-required' }).success(function() {
     if(window.location.pathname != '/logout') {
         sessionStorage.setItem('token', keycloak.token)
         axios_keycloak.get('http://10.6.1.84:7777/api/user').then((response) => { store.commit('setUser', response.data) })
-    
-        // setInterval(function () {
-        //     keycloak.updateToken().success(function (refreshed) {
-        //         if (refreshed) {
-        //             console.log('token atualizado')
-        //         } else{
-        //             console.log('token ainda valido')
-        //         }
-        //         sessionStorage.setItem('token', keycloak.token)
-    
-        //     }).error(function() { console.log('erro ao atualizar o token') });
-    
-        // }, 1 * 60 * 1000);
+        console.log(keycloak);
 
     } else {
-        // console.log('**  LOGOUT');
         sessionStorage.removeItem('token')
-        // window.location = keycloak.createLogoutUrl({ redirectUri: 'http://10.6.1.84:5555/' });
         keycloak.logout();
-        // console.log(keycloak.createUrlLogout());
-        
     }
-
 
 }).error((error) => {
     console.log(error);
 });
+
+
 
 // insere o bearer token
 axios_keycloak.interceptors.request.use(function (config) {

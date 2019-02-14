@@ -8,6 +8,10 @@
                     <div class="card-body">
                         Bom dia, {{ $store.getters.user.name }}
                     </div>
+                    <div>
+                        <button v-if="can('recursoA')">asdfasdf</button>
+                        <input :disabled="!can('recursoC')">asdfasdf</input>
+                    </div>
                 </div>
             </div>
         </div>
@@ -15,7 +19,6 @@
 </template>
 
 <script>
-
 export default {
     props: {
     },

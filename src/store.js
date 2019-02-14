@@ -20,7 +20,7 @@ const store = new Vuex.Store({
         AUTH_SUCCESS: (state, token=null) => {
             state.status = 'success'
             state.token = token || state.token
-            sessionStorage.setItem('token', token)
+            if(token) sessionStorage.setItem('token', token)
         },
         AUTH_ERROR: (state) => {
             state.status = 'error'
@@ -29,9 +29,6 @@ const store = new Vuex.Store({
             sessionStorage.removeItem('token') // clear your user's token from localstorage
             state.status = 'logged_out'
             state.user   = null
-            state.token  = ''
-            console.log(keycloak)
-            keycloak.logout()
         },
     },
     actions: {
@@ -70,6 +67,9 @@ const store = new Vuex.Store({
     getters: {
         user: state => {
             return state.user
+        },
+        user_roles: state => {
+            return state.user.allRoles
         },
         isAuthenticated: state => !!state.token,
         authStatus: state => state.status,

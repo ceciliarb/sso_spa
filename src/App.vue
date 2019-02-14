@@ -2,7 +2,7 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <nav class="navbar navbar-expand-md navbar-light navbar-laravel" v-if="user != null">
+    <nav class="navbar navbar-expand-md navbar-light navbar-laravel" v-if="$store.getters.isAuthenticated">
         <div class="container">
             <ul class="navbar-nav">
                 <router-link :to="{ name: 'home' }" class="nav-link">Home</router-link>
@@ -19,13 +19,11 @@
 </template>
 
 <script>
-import Auth from './components/Auth.vue'
 
 export default {
   name: 'app',
   components: {
   },
-  extends: Auth,
   methods: {
   }
 }

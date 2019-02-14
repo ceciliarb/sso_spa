@@ -1,35 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store' // your vuex store 
 
 import ExampleComponent from './components/ExampleComponent'
 import InfoUsuario from './components/InfoUsuario'
-// import Logout from './components/Logout'
 import Unauthorized from './components/Unauthorized'
 import Error404 from './components/Error404'
 
 Vue.use(VueRouter)
 
+const ifNotAuthenticated = (to, from, next) => {
+    if (!store.getters.isAuthenticated) {
+        next()
+        return
+    }
+    next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+    if (store.getters.isAuthenticated) {
+        next()
+        return
+    }
+    next('/unauthorized')
+}
+
 const routes = [
-    {
-        path: '/',
-        name: 'home',
-        component: ExampleComponent,
-    },
     {
         path: '/home',
         name: 'home',
         component: ExampleComponent,
+        beforeEnter: ifAuthenticated,
     },
     {
         path: '/info',
         name: 'info',
         component: InfoUsuario,
+        beforeEnter: ifAuthenticated,
     },
-    // {
-    //     path: '/logout',
-    //     name: 'logout',
-    //     component: Logout
-    // }, // Logout
     {
         path: '*',
         component: Error404

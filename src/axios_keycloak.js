@@ -1,25 +1,23 @@
 import axios from 'axios';
 import store from './store'
+import router from './router'
 
-const axios_keycloak = axios.create({ headers: { 'crossDomain': true }});
 
 const keycloak = Keycloak();
 keycloak.init({ onLoad: 'login-required' }).success(function() {
-    if(window.location.pathname != '/logout') {
-        sessionStorage.setItem('token', keycloak.token)
-        axios_keycloak.get('http://10.6.1.84:7777/api/user').then((response) => { store.commit('setUser', response.data) })
-        console.log(keycloak);
-
-    } else {
-        sessionStorage.removeItem('token')
-        keycloak.logout();
+    if(window.location.pathname == '/logout') {
+        store.dispatch('LOGOUT_REQUEST').then( r => { keycloak.logout({ 'redirectUri': 'http://10.6.1.84:5555' }) })
     }
-
+    store.dispatch('AUTH_REQUEST', keycloak.token)
+    router.push('/home')
+    
 }).error((error) => {
     console.log(error);
 });
 
 
+
+const axios_keycloak = axios.create({ headers: { 'crossDomain': true }});
 
 // insere o bearer token
 axios_keycloak.interceptors.request.use(function (config) {

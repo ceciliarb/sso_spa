@@ -1,12 +1,12 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center" v-if="user != null">
+        <div class="row justify-content-center" v-if="$store.getters.isAuthenticated">
             <div class="col">
                 <div class="card">
                     <div class="card-header">Home</div>
 
                     <div class="card-body">
-                        Bom dia, {{ user.name }}
+                        Bom dia, {{ $store.getters.user.name }}
                     </div>
                 </div>
             </div>
@@ -15,11 +15,9 @@
 </template>
 
 <script>
-import Auth from "./Auth"
 
 export default {
     props: {
     },
-    extends: Auth,
 }
 </script>

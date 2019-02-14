@@ -69,7 +69,7 @@ const store = new Vuex.Store({
             return state.user
         },
         user_roles: state => {
-            return state.user.allRoles
+            return state.user.roles
         },
         isAuthenticated: state => !!state.token,
         authStatus: state => state.status,

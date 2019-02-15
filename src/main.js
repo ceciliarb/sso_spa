@@ -23,11 +23,19 @@ Vue.mixin({
       let roles = store.getters.user_roles
       if(!roles) return false
       for(var i = 0; i < roles.length; i++) {
-        if(permissoes1[name].includes(roles[i])) {
+        //se no array de permissoes, no role iterado, existe o recurso 'name'
+        if(permissoes[roles[i]].includes(name)) {
           return true
         }
       }
       return false
+
+      // for(var i = 0; i < roles.length; i++) {
+      //   if(permissoes1[name].includes(roles[i])) {
+      //     return true
+      //   }
+      // }
+      // return false
 
       // if(!roles) return false
       // if(roles.includes('administrador')) {

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store' // your vuex store 
+import { can } from './permissions.js'
 
 import ExampleComponent from './components/ExampleComponent'
 import InfoUsuario from './components/InfoUsuario'
@@ -25,6 +26,14 @@ const ifAuthenticated = (to, from, next) => {
     next('/unauthorized')
 }
 
+const ifAuthorized = (to, from, next) => {
+    if (can(to.fullPath)) {
+        next()
+        return
+    }
+    next('/unauthorized')
+}
+
 const routes = [
     {
         path: '/home',
@@ -36,7 +45,7 @@ const routes = [
         path: '/info',
         name: 'info',
         component: InfoUsuario,
-        beforeEnter: ifAuthenticated,
+        beforeEnter: ifAuthorized,
     },
     {
         path: '*',

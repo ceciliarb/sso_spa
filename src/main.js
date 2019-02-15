@@ -22,8 +22,9 @@ Vue.mixin({
     can: function (name) {
       let roles = store.getters.user_roles
       if(!roles) return false
+      //iterando no array de roles do usuario logado
       for(var i = 0; i < roles.length; i++) {
-        //se no array de permissoes, no role iterado, existe o recurso 'name'
+        //se no array de permissoes existe o recurso 'name' para o role iterado
         if(permissoes[roles[i]].includes(name)) {
           return true
         }

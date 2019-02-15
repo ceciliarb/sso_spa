@@ -1,0 +1,5 @@
+{
+    "recursoA": [ "administrador" , "desenvolvedor" ],
+    "recursoB": [ "administrador" , "desenvolvedor" ],
+    "recursoC": [ "desenvolvedor" ]
+}

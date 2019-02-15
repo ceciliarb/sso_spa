@@ -4,7 +4,6 @@ import router from './router'
 import { keycloak, axios_keycloak } from './axios_keycloak'
 import store from './store'
 import permissoes from './permissoes.json'
-import permissoes1 from './permissoes.1.json'
 
 Vue.config.productionTip = false
 
@@ -30,21 +29,6 @@ Vue.mixin({
         }
       }
       return false
-
-      // for(var i = 0; i < roles.length; i++) {
-      //   if(permissoes1[name].includes(roles[i])) {
-      //     return true
-      //   }
-      // }
-      // return false
-
-      // if(!roles) return false
-      // if(roles.includes('administrador')) {
-      //   return true
-      // } else if(roles.includes('desenvolvedor')) {
-      //   return (permissoes.desenvolvedor.includes(name))
-      // }
-      // return false;
     },
   }
 })
